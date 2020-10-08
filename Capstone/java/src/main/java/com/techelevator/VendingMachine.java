@@ -10,6 +10,17 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachine {
+    private BigDecimal balance = BigDecimal.ZERO;
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void depositBalance(int dollars) {
+        this.balance = balance.add(BigDecimal.valueOf(dollars));
+
+    }
+
     Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
     public String listInventory(){
         String result = "";
@@ -17,6 +28,11 @@ public class VendingMachine {
             result += itemEntry.getKey() + " " + " " + itemEntry.getValue() + "\n";
 
         } return result;
+    }
+
+    public BigDecimal getPrice(String slotNumber) {
+       InventoryItem item = inventoryPlacement.get(slotNumber);
+       return item.getPrice();
     }
 
 

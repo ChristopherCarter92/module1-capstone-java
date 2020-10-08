@@ -34,10 +34,7 @@ public class MenuDrivenCLI implements BasicUI{
         return userInput.nextLine();
     }
 
-    public int getBalance(BigDecimal balance) {
 
-
-    }
 }
 
 
