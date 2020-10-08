@@ -5,11 +5,25 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachine {
-    Map<String, InventoryItem> inventoryPlacement = new HashMap<>();
+    Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
+    public String listInventory(){
+        String result = "";
+        for (Map.Entry<String, InventoryItem> itemEntry : inventoryPlacement.entrySet()) {
+            result += itemEntry.getKey() + " " + " " + itemEntry.getValue() + "\n";
+
+        } return result;
+    }
+
+
+
+    public VendingMachine() {
+        loadInventory();
+    }
 
     public void loadInventory() {
         Path inventoryFile = Paths.get("inventory.txt");
@@ -24,8 +38,16 @@ public class VendingMachine {
                 if(type.equals("Chip")) {
                     Chip product = new Chip (name, price);
                     inventoryPlacement.put(position, product);
-                } //place the candy and gum
-
+                } else if(type.equals("Candy")) {
+                    Candy product = new Candy (name, price);
+                    inventoryPlacement.put(position, product);
+                } else if(type.equals("Gum")) {
+                    Gum product = new Gum (name, price);
+                    inventoryPlacement.put(position, product);
+                } else if(type.equals("Drink")) {
+                    Drink product = new Drink (name, price);
+                    inventoryPlacement.put(position, product);
+                }
             }
         } catch (IOException e) {
 

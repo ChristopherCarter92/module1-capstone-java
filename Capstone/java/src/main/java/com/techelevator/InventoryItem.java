@@ -37,6 +37,8 @@ public InventoryItem(String name, BigDecimal price){
         this.outOfStock = outOfStock;
     }
 
-
+    public String toString() {
+    return name + " " + price;
+    }
 
 }

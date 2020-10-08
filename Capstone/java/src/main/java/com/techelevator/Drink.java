@@ -1,8 +1,10 @@
 package com.techelevator;
 
-public class Drink extends InventoryItems{
+import java.math.BigDecimal;
 
-    public Drink(String position, String product, double price) {
-        super(position, product, price);
+public class Drink extends InventoryItem{
+
+    public Drink(String product, BigDecimal price) {
+        super(product, price);
     }
 }
