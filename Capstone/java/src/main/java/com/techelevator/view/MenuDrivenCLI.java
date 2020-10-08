@@ -1,5 +1,6 @@
 package com.techelevator.view;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class MenuDrivenCLI implements BasicUI{
@@ -23,4 +24,20 @@ public class MenuDrivenCLI implements BasicUI{
     public String promptForSelection(String[] options) {
         return (String) menu.getChoiceFromOptions(options);
     }
+
+    public int promptForInt(String prompt){
+        System.out.print(prompt);
+        return Integer.parseInt(userInput.nextLine());
+    }
+    public String promptForPosition(String prompt){
+        System.out.print(prompt);
+        return userInput.nextLine();
+    }
+
+    public int getBalance(BigDecimal balance) {
+
+
+    }
 }
+
+

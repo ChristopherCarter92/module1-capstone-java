@@ -7,4 +7,8 @@ public interface BasicUI {
     void pauseOutput();
 
     String promptForSelection(String[] options);
+
+    int promptForInt(String prompt);
+
+    String promptForPosition(String prompt);
 }

@@ -6,7 +6,9 @@ public abstract class InventoryItem  {
     private String position;
     private String name;
     private BigDecimal price;
-    private boolean outOfStock; //change to integer for quantity to keep track
+    private static final int DEFAULT_INVENTORY = 5; //come back to this!!
+    private int quantity = DEFAULT_INVENTORY;
+
 
 public InventoryItem(String name, BigDecimal price){
     this.name = name;
@@ -29,16 +31,10 @@ public InventoryItem(String name, BigDecimal price){
         this.price = price;
     }
 
-    public boolean isOutOfStock() {
-        return outOfStock;
-    }
 
-    public void setOutOfStock(boolean outOfStock) {
-        this.outOfStock = outOfStock;
-    }
 
     public String toString() {
-    return name + " " + price;
+    return name + " " + price + " " + quantity;
     }
 
 }
