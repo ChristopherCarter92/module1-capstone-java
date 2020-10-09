@@ -1,13 +1,13 @@
 package com.techelevator;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class VendingMachine {
     private BigDecimal balance = BigDecimal.ZERO;
@@ -29,7 +29,7 @@ public class VendingMachine {
 
         } return result;
     }
-
+//gets price from item
     public BigDecimal getPrice(String slotNumber) {
        InventoryItem item = inventoryPlacement.get(slotNumber);
        return item.getPrice();
@@ -70,6 +70,16 @@ public class VendingMachine {
         }
 
     }
+    public String makePurchase(String purchase) {
+
+
+        balance = getPrice("A2")
+    }
+
+
+//        public void inventoryScanner() {
+//            Path sourcePath = Paths.get()
+//        }
 
     // add a method that scans inventory files and puts into map
 }

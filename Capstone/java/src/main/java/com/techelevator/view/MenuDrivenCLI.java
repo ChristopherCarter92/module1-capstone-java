@@ -3,7 +3,7 @@ package com.techelevator.view;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class MenuDrivenCLI implements BasicUI{
+public class MenuDrivenCLI implements BasicUI {
 
     private final Scanner userInput = new Scanner(System.in);
     private final Menu menu = new Menu(System.in, System.out);
@@ -25,11 +25,12 @@ public class MenuDrivenCLI implements BasicUI{
         return (String) menu.getChoiceFromOptions(options);
     }
 
-    public int promptForInt(String prompt){
+    public int promptForInt(String prompt) {
         System.out.print(prompt);
         return Integer.parseInt(userInput.nextLine());
     }
-    public String promptForPosition(String prompt){
+
+    public String promptForPosition(String prompt) {
         System.out.print(prompt);
         return userInput.nextLine();
     }

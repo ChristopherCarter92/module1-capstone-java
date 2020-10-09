@@ -2,7 +2,7 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 
-public abstract class InventoryItem  {
+public abstract class InventoryItem {
     private String position;
     private String name;
     private BigDecimal price;
@@ -10,13 +10,13 @@ public abstract class InventoryItem  {
     private int quantity = DEFAULT_INVENTORY;
 
 
-public InventoryItem(String name, BigDecimal price){
-    this.name = name;
-    this.price = price;
-}
+    public InventoryItem(String name, BigDecimal price) {
+        this.name = name;
+        this.price = price;
+    }
 
     public String getName() {
-    return name;
+        return name;
     }
 
     public void setName(String name) {
@@ -32,9 +32,8 @@ public InventoryItem(String name, BigDecimal price){
     }
 
 
-
     public String toString() {
-    return name + " " + price + " " + quantity;
+        return name + " " + price + " " + quantity;
     }
 
 }
