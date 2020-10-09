@@ -35,6 +35,12 @@ public class MenuDrivenCLI implements BasicUI {
         return userInput.nextLine();
     }
 
+//    public BigDecimal promptUserForBigDecimal(String prompt) {
+//        System.out.print(prompt);
+//        String enteredVAlue = userInput.nextLine();
+//        return BigDecimal(enteredVAlue);
+//    }
+
 
 }
 

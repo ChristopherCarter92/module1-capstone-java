@@ -16,7 +16,7 @@ public class VendingMachine {
         return balance;
     }
 
-    public void depositBalance(int dollars) {
+    public void depositMoney(int dollars) {
         this.balance = balance.add(BigDecimal.valueOf(dollars));
 
     }
@@ -70,10 +70,11 @@ public class VendingMachine {
         }
 
     }
-    public String makePurchase(String purchase) {
-
-
-        balance = getPrice("A2")
+    public void makePurchase(String position) {
+        InventoryItem selectedProduct = inventoryPlacement.get(position);
+        selectedProduct.decreaseQuantity();
+        balance = balance.subtract(selectedProduct.getPrice());
+        System.out.print(this.balance);
     }
 
 

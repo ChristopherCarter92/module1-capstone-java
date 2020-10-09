@@ -3,12 +3,7 @@ package com.techelevator;
 import com.techelevator.view.BasicUI;
 import com.techelevator.view.MenuDrivenCLI;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class Application extends VendingMachine {
 
@@ -58,20 +53,24 @@ public class Application extends VendingMachine {
         while (!finished) {
             String selection = ui.promptForSelection(SUB_MENU_OPTIONS);
             if (selection.equals(SUB_MENU_OPTION_1)) {
-                int amount = ui.promptForInt("Enter money in whole dollar amount: ");
-                vendingMachine.depositBalance(amount);
+                int amount = ui.promptForInt("Enter money in whole dollar amount: $");
+                vendingMachine.depositMoney(amount);
                 System.out.print(vendingMachine.getBalance());
             } else if (selection.equals(SUB_MENU_OPTION_2)) {
                 String slotSelection = ui.promptForPosition("Please enter letter followed by number");
                 if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) == 0) {
                     System.out.print("Deposit money before making a selection");
                 } else {
+                    vendingMachine.makePurchase(slotSelection); //method in vendingMachine
+
+
+
                     //add the vending machine purchase method
                     //in purchase method include enough for the quantity and purchase
                     //include the slotNumber and purchase price
                 }
             } else if (selection.equals(SUB_MENU_OPTION_3)) {
-                BigDecimal getPrice;
+                finished = true;
 
             }
         }

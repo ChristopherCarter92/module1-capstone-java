@@ -36,4 +36,8 @@ public abstract class InventoryItem {
         return name + " " + price + " " + quantity;
     }
 
+    public void decreaseQuantity() {
+        quantity = quantity -1;
+    }
+
 }
