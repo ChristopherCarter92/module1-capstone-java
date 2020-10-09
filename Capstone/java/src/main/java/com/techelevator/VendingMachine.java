@@ -70,11 +70,12 @@ public class VendingMachine {
         }
 
     }
-    public void makePurchase(String position) {
+    public String makePurchase(String position) {
         InventoryItem selectedProduct = inventoryPlacement.get(position);
         selectedProduct.decreaseQuantity();
         balance = balance.subtract(selectedProduct.getPrice());
-        System.out.print(this.balance);
+        return selectedProduct.getSound();
+
     }
 
 

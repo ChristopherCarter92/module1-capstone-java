@@ -59,9 +59,11 @@ public class Application extends VendingMachine {
             } else if (selection.equals(SUB_MENU_OPTION_2)) {
                 String slotSelection = ui.promptForPosition("Please enter letter followed by number");
                 if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) == 0) {
-                    System.out.print("Deposit money before making a selection");
+                    ui.output("Deposit money before making a selection");
                 } else {
-                    vendingMachine.makePurchase(slotSelection); //method in vendingMachine
+                    String purchaseResult = vendingMachine.makePurchase(slotSelection); //method in vendingMachine
+                    ui.output("New Balance: $" + vendingMachine.getBalance());
+                    ui.output(purchaseResult);
 
 
 

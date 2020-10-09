@@ -39,5 +39,6 @@ public abstract class InventoryItem {
     public void decreaseQuantity() {
         quantity = quantity -1;
     }
+    public abstract String getSound();
 
 }
