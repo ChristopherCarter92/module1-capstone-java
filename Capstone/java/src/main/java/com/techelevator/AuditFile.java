@@ -22,12 +22,12 @@ public class AuditFile  {
 
         String formattedDate = myDateObj.format(myFormatObj);
         String auditPrintOut = (formattedDate + " " + "FEED MONEY: " + balance + " You gave: " + dollars);
-//        writeToFile(auditPrintOut);
+        writeToFile(auditPrintOut);
 
     }
     private void writeToFile(String line) {
-        try (FileOutputStream stream = new FileOutputStream("log.txt", true)) {
-                PrintWriter writer = new PrintWriter(stream);
+        try (FileOutputStream stream = new FileOutputStream("log.txt", true);
+                PrintWriter writer = new PrintWriter(stream)){
                 writer.println(line);
 
         }catch (IOException e){
