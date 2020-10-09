@@ -31,14 +31,23 @@ public abstract class InventoryItem {
         this.price = price;
     }
 
+    public int getQuantity() {return quantity;}
+    public void setQuantity(int quantity) {this.quantity = quantity;}
+
 
     public String toString() {
-        return name + " " + price + " " + quantity;
+        if (quantity == 0) {
+            return "Sold Out";
+        }else {
+            return name + " " + price + " " + quantity;
+        }
+
     }
 
     public void decreaseQuantity() {
         quantity = quantity -1;
     }
     public abstract String getSound();
+
 
 }

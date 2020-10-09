@@ -30,7 +30,7 @@ public class Application extends VendingMachine {
         Application application = new Application(cli);
         application.run();
     }
-
+//MAIN MENU OPTIONS
     public void run() {
         boolean finished = false;
         while (!finished) {
@@ -47,31 +47,34 @@ public class Application extends VendingMachine {
             }
         }
     }
-
+//SUB MENU OPTIONS
     public void handleSubMenu() {
         boolean finished = false;
         while (!finished) {
             String selection = ui.promptForSelection(SUB_MENU_OPTIONS);
             if (selection.equals(SUB_MENU_OPTION_1)) {
-                int amount = ui.promptForInt("Enter money in whole dollar amount: $");
+                int amount = ui.promptForInt("Enter money in whole dollar amount: $"); //feed money
                 vendingMachine.depositMoney(amount);
                 System.out.print(vendingMachine.getBalance());
             } else if (selection.equals(SUB_MENU_OPTION_2)) {
                 String slotSelection = ui.promptForPosition("Please enter letter followed by number");
-                if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) == 0) {
+                if (vendingMachine.getBalance().compareTo(BigDecimal.ZERO) == 0) {
                     ui.output("Deposit money before making a selection");
-                } else {
+
+                } else if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) == -1){
+                    ui.output("Transaction denied");
+
+                }
+                else if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) >= 0){
                     String purchaseResult = vendingMachine.makePurchase(slotSelection); //method in vendingMachine
                     ui.output("New Balance: $" + vendingMachine.getBalance());
                     ui.output(purchaseResult);
 
-
-
-                    //add the vending machine purchase method
-                    //in purchase method include enough for the quantity and purchase
-                    //include the slotNumber and purchase price
                 }
             } else if (selection.equals(SUB_MENU_OPTION_3)) {
+                    ui.output(vendingMachine.giveChange());
+
+
                 finished = true;
 
             }

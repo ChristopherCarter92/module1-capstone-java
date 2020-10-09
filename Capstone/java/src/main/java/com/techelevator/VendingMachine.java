@@ -11,17 +11,23 @@ import java.util.*;
 
 public class VendingMachine {
     private BigDecimal balance = BigDecimal.ZERO;
+    private Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
+    AuditFile log = new AuditFile();
 
     public BigDecimal getBalance() {
         return balance;
     }
 
+    //deposit money method
     public void depositMoney(int dollars) {
         this.balance = balance.add(BigDecimal.valueOf(dollars));
+        this.balance = balance.setScale(2);
+        BigDecimal decimalDollars = BigDecimal.valueOf(dollars);
+        log.logDeposit(balance, decimalDollars.setScale(2));
 
     }
 
-    Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
+
     public String listInventory(){
         String result = "";
         for (Map.Entry<String, InventoryItem> itemEntry : inventoryPlacement.entrySet()) {
@@ -71,17 +77,39 @@ public class VendingMachine {
 
     }
     public String makePurchase(String position) {
+        String result = "";
         InventoryItem selectedProduct = inventoryPlacement.get(position);
-        selectedProduct.decreaseQuantity();
-        balance = balance.subtract(selectedProduct.getPrice());
-        return selectedProduct.getSound();
+        if(selectedProduct.getQuantity()> 0) {
+            selectedProduct.decreaseQuantity();
+            balance = balance.subtract(selectedProduct.getPrice());
+            result = selectedProduct.getSound();
+        } else {
+            result = "Sorry, out of stock!";
+        }
+        return result;
+    }
 
+    public String giveChange() {
+
+        String result = "";
+         BigDecimal balanceInPennies = balance.multiply(BigDecimal.valueOf(100));
+         int numberOfPennies = balanceInPennies.intValue();
+         int quarterValue = 25;
+         int dimeValue = 10;
+         int nickelValue = 5;
+         int numberOfQuarters = numberOfPennies / quarterValue;
+         numberOfPennies = numberOfPennies % quarterValue;
+         int numberOfDimes = numberOfPennies / dimeValue;
+         numberOfPennies = numberOfPennies % dimeValue;
+         int numberOfNickels = numberOfPennies / nickelValue;
+         numberOfPennies = numberOfPennies % nickelValue;
+
+         result = "Your Change Here: " + numberOfQuarters + " quarters, " +  numberOfDimes +" dimes, "+ numberOfNickels + " nickels.";
+         balance = BigDecimal.ZERO;
+         return result;
     }
 
 
-//        public void inventoryScanner() {
-//            Path sourcePath = Paths.get()
-//        }
 
-    // add a method that scans inventory files and puts into map
+
 }
