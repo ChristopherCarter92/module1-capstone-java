@@ -12,7 +12,9 @@ import java.util.*;
 public class VendingMachine {
     private BigDecimal balance = BigDecimal.ZERO;
     private Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
+    private Map<String , Integer> saleRecord = new HashMap<String, Integer>();
     AuditFile log = new AuditFile();
+
 
     public BigDecimal getBalance() {
         return balance;
