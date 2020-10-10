@@ -6,45 +6,55 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
-public class AuditFile {
+public class AuditFile extends VendingMachine {
 
 
-    LocalDateTime myDateObj = LocalDateTime.now();
 
-    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private static LocalDateTime myDateObj = LocalDateTime.now();
+
+    private static DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private static String formattedDate = myDateObj.format(myFormatObj);
 
 
     public void logDeposit(BigDecimal balance, BigDecimal dollars) {
         myDateObj = LocalDateTime.now();
 
         String formattedDate = myDateObj.format(myFormatObj);
-        String auditPrintOut = (formattedDate + " " + "FEED MONEY:  " + "$" + balance + " $" + dollars);
+        String auditPrintOut = (formattedDate + " " + "FEED MONEY:  " + "$" + dollars + " $" + balance);
         writeToFile(auditPrintOut);
 
     }
 
-    public void logPurchase(BigDecimal balance, BigDecimal dollars) {
+    public static void logPurchase(BigDecimal balance, String position) {
+        myDateObj = LocalDateTime.now();
+        String item = "";
+        BigDecimal price = BigDecimal.ZERO;
+
+        for (Map.Entry<String, InventoryItem> itemEntry : inventoryPlacement.entrySet()) {
+            if (itemEntry.getKey().contains(position.toUpperCase())) {
+                item = itemEntry.getValue().getName();
+                price = itemEntry.getValue().getPrice();
+
+        }
+
+        writeToFile(formattedDate + " " +   "$" + item + " " + price + " $" + balance);
+
+    }
+    }
+
+    public void logTransaction(BigDecimal beforeBalance, BigDecimal afterBalance) {
         myDateObj = LocalDateTime.now();
 
 
         String formattedDate = myDateObj.format(myFormatObj);
-        String auditPrintOut = (formattedDate + " " +getClass() + "$" + balance + " $" + dollars);
+        String auditPrintOut = (formattedDate + " " + "GIVE CHANGE:  " + "$" + beforeBalance + " $" + afterBalance);
         writeToFile(auditPrintOut);
 
     }
 
-    public void logTransaction(BigDecimal balance, BigDecimal dollars) {
-        myDateObj = LocalDateTime.now();
-
-
-        String formattedDate = myDateObj.format(myFormatObj);
-        String auditPrintOut = (formattedDate + " " + "GIVE CHANGE:  " + "$" + balance + " $" + dollars);
-        writeToFile(auditPrintOut);
-
-    }
-
-    private void writeToFile(String line) {
+    private static void writeToFile(String line) {
         try (FileOutputStream stream = new FileOutputStream("log.txt", true);
              PrintWriter writer = new PrintWriter(stream)) {
             writer.println(line);

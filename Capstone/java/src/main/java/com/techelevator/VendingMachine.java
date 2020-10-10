@@ -11,7 +11,7 @@ import java.util.*;
 
 public class VendingMachine {
     private BigDecimal balance = BigDecimal.ZERO;
-    private Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
+    public static Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
     private Map<String, Integer> saleRecord = new HashMap<>();
     AuditFile log = new AuditFile();
 //    SalesReport salesReport = new SalesReport();
@@ -30,7 +30,7 @@ public class VendingMachine {
 
     }
 
-
+// lists the inventory when option one is pressed
     public String listInventory() {
         String result = "";
         for (Map.Entry<String, InventoryItem> itemEntry : inventoryPlacement.entrySet()) {
@@ -88,6 +88,7 @@ public class VendingMachine {
             selectedProduct.decreaseQuantity();
             balance = balance.subtract(selectedProduct.getPrice());
             result = selectedProduct.getSound();
+            log.logPurchase(balance, position);
         } else {
             result = "Sorry, out of stock!";
         }
@@ -95,6 +96,7 @@ public class VendingMachine {
     }
 
     public String giveChange() {
+        BigDecimal beforeBalance = getBalance();
 
         String result = "";
         BigDecimal balanceInPennies = balance.multiply(BigDecimal.valueOf(100));
@@ -115,11 +117,12 @@ public class VendingMachine {
     }
 
 
-    public String itemNameAndAmountPurchased(String name, int purchased) {
-        String result = "";
-        result = name + purchased;
-        return result;
-    }
+//   public void nameAndPosition(String name, BigDecimal  price) {
+//        String result = "";
+//        InventoryItem name = new InventoryItem(name, price);
+//        result = InventoryItem.getName() + " " + ;
+//
+//   }
 
 
 }

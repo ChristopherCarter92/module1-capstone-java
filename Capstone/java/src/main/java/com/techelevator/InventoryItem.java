@@ -64,10 +64,10 @@ public abstract class InventoryItem {
 
     public abstract String getSound();
 
-    public void numberOfItemsPurchased() {
-
-
-    }
+//    public void itemsPurchased() {
+//        purchasedAmount = purchasedAmount + 1;
+//
+//    }
 
 
 }
