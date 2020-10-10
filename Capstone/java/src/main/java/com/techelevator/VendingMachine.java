@@ -12,8 +12,9 @@ import java.util.*;
 public class VendingMachine {
     private BigDecimal balance = BigDecimal.ZERO;
     private Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
-    private Map<String , Integer> saleRecord = new HashMap<String, Integer>();
+    private Map<String, Integer> saleRecord = new HashMap<>();
     AuditFile log = new AuditFile();
+//    SalesReport salesReport = new SalesReport();
 
 
     public BigDecimal getBalance() {
@@ -30,19 +31,20 @@ public class VendingMachine {
     }
 
 
-    public String listInventory(){
+    public String listInventory() {
         String result = "";
         for (Map.Entry<String, InventoryItem> itemEntry : inventoryPlacement.entrySet()) {
             result += itemEntry.getKey() + " " + " " + itemEntry.getValue() + "\n";
 
-        } return result;
-    }
-//gets price from item
-    public BigDecimal getPrice(String slotNumber) {
-       InventoryItem item = inventoryPlacement.get(slotNumber);
-       return item.getPrice();
+        }
+        return result;
     }
 
+    //gets price from item
+    public BigDecimal getPrice(String slotNumber) {
+        InventoryItem item = inventoryPlacement.get(slotNumber);
+        return item.getPrice();
+    }
 
 
     public VendingMachine() {
@@ -51,25 +53,25 @@ public class VendingMachine {
 
     public void loadInventory() {
         Path inventoryFile = Paths.get("inventory.txt");
-        try (Scanner input = new Scanner (inventoryFile)){
+        try (Scanner input = new Scanner(inventoryFile)) {
             while (input.hasNextLine()) {
                 String line = input.nextLine();
-                String [] lineParts = line.split("\\|");
+                String[] lineParts = line.split("\\|");
                 String position = lineParts[0];
                 String name = lineParts[1];
                 BigDecimal price = new BigDecimal(lineParts[2]);
                 String type = lineParts[3];
-                if(type.equals("Chip")) {
-                    Chip product = new Chip (name, price);
+                if (type.equals("Chip")) {
+                    Chip product = new Chip(name, price);
                     inventoryPlacement.put(position, product);
-                } else if(type.equals("Candy")) {
-                    Candy product = new Candy (name, price);
+                } else if (type.equals("Candy")) {
+                    Candy product = new Candy(name, price);
                     inventoryPlacement.put(position, product);
-                } else if(type.equals("Gum")) {
-                    Gum product = new Gum (name, price);
+                } else if (type.equals("Gum")) {
+                    Gum product = new Gum(name, price);
                     inventoryPlacement.put(position, product);
-                } else if(type.equals("Drink")) {
-                    Drink product = new Drink (name, price);
+                } else if (type.equals("Drink")) {
+                    Drink product = new Drink(name, price);
                     inventoryPlacement.put(position, product);
                 }
             }
@@ -78,10 +80,11 @@ public class VendingMachine {
         }
 
     }
+
     public String makePurchase(String position) {
         String result = "";
         InventoryItem selectedProduct = inventoryPlacement.get(position);
-        if(selectedProduct.getQuantity()> 0) {
+        if (selectedProduct.getQuantity() > 0) {
             selectedProduct.decreaseQuantity();
             balance = balance.subtract(selectedProduct.getPrice());
             result = selectedProduct.getSound();
@@ -94,24 +97,29 @@ public class VendingMachine {
     public String giveChange() {
 
         String result = "";
-         BigDecimal balanceInPennies = balance.multiply(BigDecimal.valueOf(100));
-         int numberOfPennies = balanceInPennies.intValue();
-         int quarterValue = 25;
-         int dimeValue = 10;
-         int nickelValue = 5;
-         int numberOfQuarters = numberOfPennies / quarterValue;
-         numberOfPennies = numberOfPennies % quarterValue;
-         int numberOfDimes = numberOfPennies / dimeValue;
-         numberOfPennies = numberOfPennies % dimeValue;
-         int numberOfNickels = numberOfPennies / nickelValue;
-         numberOfPennies = numberOfPennies % nickelValue;
+        BigDecimal balanceInPennies = balance.multiply(BigDecimal.valueOf(100));
+        int numberOfPennies = balanceInPennies.intValue();
+        int quarterValue = 25;
+        int dimeValue = 10;
+        int nickelValue = 5;
+        int numberOfQuarters = numberOfPennies / quarterValue;
+        numberOfPennies = numberOfPennies % quarterValue;
+        int numberOfDimes = numberOfPennies / dimeValue;
+        numberOfPennies = numberOfPennies % dimeValue;
+        int numberOfNickels = numberOfPennies / nickelValue;
+        numberOfPennies = numberOfPennies % nickelValue;
 
-         result = "Your Change Here: " + numberOfQuarters + " quarters, " +  numberOfDimes +" dimes, "+ numberOfNickels + " nickels.";
-         balance = BigDecimal.ZERO;
-         return result;
+        result = "Your Change Here: " + numberOfQuarters + " quarters, " + numberOfDimes + " dimes, " + numberOfNickels + " nickels.";
+        balance = BigDecimal.ZERO;
+        return result;
     }
 
 
+    public String itemNameAndAmountPurchased(String name, int purchased) {
+        String result = "";
+        result = name + purchased;
+        return result;
+    }
 
 
 }

@@ -30,7 +30,8 @@ public class Application extends VendingMachine {
         Application application = new Application(cli);
         application.run();
     }
-//MAIN MENU OPTIONS
+
+    //MAIN MENU OPTIONS
     public void run() {
         boolean finished = false;
         while (!finished) {
@@ -47,7 +48,8 @@ public class Application extends VendingMachine {
             }
         }
     }
-//SUB MENU OPTIONS
+
+    //SUB MENU OPTIONS
     public void handleSubMenu() {
         boolean finished = false;
         while (!finished) {
@@ -61,18 +63,17 @@ public class Application extends VendingMachine {
                 if (vendingMachine.getBalance().compareTo(BigDecimal.ZERO) == 0) {
                     ui.output("Deposit money before making a selection");
 
-                } else if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) == -1){
+                } else if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) == -1) {
                     ui.output("Transaction denied");
 
-                }
-                else if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) >= 0){
+                } else if (vendingMachine.getBalance().compareTo(vendingMachine.getPrice(slotSelection)) >= 0) {
                     String purchaseResult = vendingMachine.makePurchase(slotSelection); //method in vendingMachine
                     ui.output("New Balance: $" + vendingMachine.getBalance());
                     ui.output(purchaseResult);
 
                 }
             } else if (selection.equals(SUB_MENU_OPTION_3)) {
-                    ui.output(vendingMachine.giveChange());
+                ui.output(vendingMachine.giveChange());
 
 
                 finished = true;

@@ -24,23 +24,12 @@ public class AuditFile {
 
     }
 
-    private void writeToFile(String line) {
-        try (FileOutputStream stream = new FileOutputStream("log.txt", true);
-             PrintWriter writer = new PrintWriter(stream)) {
-            writer.println(line);
-
-        } catch (IOException e) {
-            System.out.println("Couldn't write to file");
-
-        }
-    }
-
     public void logPurchase(BigDecimal balance, BigDecimal dollars) {
         myDateObj = LocalDateTime.now();
 
 
         String formattedDate = myDateObj.format(myFormatObj);
-        String auditPrintOut = (formattedDate + " " +  + "$" + balance + " $" + dollars);
+        String auditPrintOut = (formattedDate + " " +getClass() + "$" + balance + " $" + dollars);
         writeToFile(auditPrintOut);
 
     }
@@ -50,9 +39,20 @@ public class AuditFile {
 
 
         String formattedDate = myDateObj.format(myFormatObj);
-        String auditPrintOut = (formattedDate + " " + "FEED MONEY:  " + "$" + balance + " $" + dollars);
+        String auditPrintOut = (formattedDate + " " + "GIVE CHANGE:  " + "$" + balance + " $" + dollars);
         writeToFile(auditPrintOut);
 
+    }
+
+    private void writeToFile(String line) {
+        try (FileOutputStream stream = new FileOutputStream("log.txt", true);
+             PrintWriter writer = new PrintWriter(stream)) {
+            writer.println(line);
+
+        } catch (IOException e) {
+            System.out.println("Couldn't write to file");
+
+        }
     }
 
 }
