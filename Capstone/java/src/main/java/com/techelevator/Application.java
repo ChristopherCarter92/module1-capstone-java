@@ -42,7 +42,8 @@ public class Application extends VendingMachine {
             } else if (selection.equals(MAIN_MENU_OPTION_PURCHASE)) {
                 handleSubMenu();
             } else if (selection.equals(MAIN_MENU_OPTION_SALES_REPORT)) {
-                //display the sales report
+                vendingMachine.salesReport();
+
             } else if (selection.equals(MAIN_MENU_OPTION_EXIT)) {
                 finished = true;
             }

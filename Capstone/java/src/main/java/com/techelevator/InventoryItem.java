@@ -64,6 +64,10 @@ public abstract class InventoryItem {
 
     public abstract String getSound();
 
+    public int returnsItemsSold() {
+        return DEFAULT_INVENTORY - quantity;
+    }
+
 //    public void itemsPurchased() {
 //        purchasedAmount = purchasedAmount + 1;
 //

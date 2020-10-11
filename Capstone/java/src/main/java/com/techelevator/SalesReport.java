@@ -1,29 +1,26 @@
 package com.techelevator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.math.BigDecimal;
+import java.util.Map;
 
-//public class SalesReport {
-//    public void closeTransaction() {
-//        File newDirectory = new File("//directory for the file");
-//        File sale = new File(newDirectory, "SalesReport.txt");
-//        try {
-//
-//            //check if file is created
-//
-//        } catch (IOException e) {
-//            System.out.println("File not created");
-//        }
-//        try (PrintWriter =new PrintWriter) {
-//            for (String sales : saleRecord.keySet)){
-//                writer.println(sales + "\t" + saleRecord.getSales));
-//            } catch(FileNotFoundException e){
-//                System.out.print("error message");
-//            }
-//        }
-//
-//
-//    }
-//}
+public class SalesReport {
+    public static void printSalesReport(Map<String, Integer> salesRecord, BigDecimal totalSold) {
+
+        try (FileOutputStream stream = new FileOutputStream("SalesReport.txt", false);
+             PrintWriter writer = new PrintWriter(stream)) {
+            for (Map.Entry<String, Integer> entry : salesRecord.entrySet()) {
+                String line = entry.getKey() + "|" + entry.getValue();
+                writer.println(line);
+
+            }
+            writer.println("\n**TOTAL SALES**" + " " + "$" + totalSold);
+
+
+        } catch (IOException e) {
+            System.out.print("error message");
+        }
+
+
+    }
+}

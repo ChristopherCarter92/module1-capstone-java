@@ -3,6 +3,7 @@ package com.techelevator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,10 +12,11 @@ import java.util.*;
 
 public class VendingMachine {
     private BigDecimal balance = BigDecimal.ZERO;
+
     public static Map<String, InventoryItem> inventoryPlacement = new LinkedHashMap<>();
-    private Map<String, Integer> saleRecord = new HashMap<>();
+
     AuditFile log = new AuditFile();
-//    SalesReport salesReport = new SalesReport();
+    SalesReport salesReport = new SalesReport();
 
 
     public BigDecimal getBalance() {
@@ -30,7 +32,7 @@ public class VendingMachine {
 
     }
 
-// lists the inventory when option one is pressed
+    // lists the inventory when option one is pressed
     public String listInventory() {
         String result = "";
         for (Map.Entry<String, InventoryItem> itemEntry : inventoryPlacement.entrySet()) {
@@ -88,7 +90,7 @@ public class VendingMachine {
             selectedProduct.decreaseQuantity();
             balance = balance.subtract(selectedProduct.getPrice());
             result = selectedProduct.getSound();
-            log.logPurchase(balance, position);
+            log.logPurchase(balance, position, selectedProduct.getName(), selectedProduct.getPrice());
         } else {
             result = "Sorry, out of stock!";
         }
@@ -111,18 +113,26 @@ public class VendingMachine {
         int numberOfNickels = numberOfPennies / nickelValue;
         numberOfPennies = numberOfPennies % nickelValue;
 
+
         result = "Your Change Here: " + numberOfQuarters + " quarters, " + numberOfDimes + " dimes, " + numberOfNickels + " nickels.";
         balance = BigDecimal.ZERO;
+        log.logTransaction(beforeBalance, balance.setScale(2));
         return result;
     }
 
+    public void salesReport() {
+        BigDecimal totalSold = BigDecimal.ZERO;
+        Map<String, Integer> saleRecord = new HashMap<>();
+        for (Map.Entry<String, InventoryItem> entry : inventoryPlacement.entrySet()) {
+            String itemName = entry.getValue().getName();
+            int quantitySold = entry.getValue().returnsItemsSold();
+            saleRecord.put(itemName, quantitySold);
+            totalSold = totalSold.add(entry.getValue().getPrice().multiply(BigDecimal.valueOf(quantitySold)));
 
-//   public void nameAndPosition(String name, BigDecimal  price) {
-//        String result = "";
-//        InventoryItem name = new InventoryItem(name, price);
-//        result = InventoryItem.getName() + " " + ;
-//
-//   }
+        }
+        SalesReport.printSalesReport(saleRecord, totalSold);
+
+    }
 
 
 }

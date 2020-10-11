@@ -50,4 +50,7 @@ public class Menu {
         out.print("\nPlease choose an option >>> ");
         out.flush();
     }
+    //SET SECRET NUMBER VALUE
+    //see if user input matches options in list of strings
+    // walk through methods with pen and paper
 }

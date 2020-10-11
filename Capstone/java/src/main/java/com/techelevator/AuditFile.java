@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-public class AuditFile extends VendingMachine {
-
+public class AuditFile {
 
 
     private static LocalDateTime myDateObj = LocalDateTime.now();
@@ -27,29 +26,21 @@ public class AuditFile extends VendingMachine {
 
     }
 
-    public static void logPurchase(BigDecimal balance, String position) {
+    public static void logPurchase(BigDecimal balance, String position, String item, BigDecimal price) {
         myDateObj = LocalDateTime.now();
-        String item = "";
-        BigDecimal price = BigDecimal.ZERO;
 
-        for (Map.Entry<String, InventoryItem> itemEntry : inventoryPlacement.entrySet()) {
-            if (itemEntry.getKey().contains(position.toUpperCase())) {
-                item = itemEntry.getValue().getName();
-                price = itemEntry.getValue().getPrice();
 
-        }
+        writeToFile(formattedDate + " " + item + " " + position + " " + "$" + price + " $" + balance);
 
-        writeToFile(formattedDate + " " +   "$" + item + " " + price + " $" + balance);
 
     }
-    }
 
-    public void logTransaction(BigDecimal beforeBalance, BigDecimal afterBalance) {
+    public void logTransaction(BigDecimal changeGiven, BigDecimal zeroBalance) {
         myDateObj = LocalDateTime.now();
 
 
         String formattedDate = myDateObj.format(myFormatObj);
-        String auditPrintOut = (formattedDate + " " + "GIVE CHANGE:  " + "$" + beforeBalance + " $" + afterBalance);
+        String auditPrintOut = (formattedDate + " " + "GIVE CHANGE:  " + "$" + changeGiven + " $" + zeroBalance);
         writeToFile(auditPrintOut);
 
     }
